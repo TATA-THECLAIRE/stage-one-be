@@ -1,102 +1,75 @@
+# Number Classification API
 
+A REST API that provides mathematical properties and fun facts about numbers.
 
-
-# HNG12 Stage 0 Backend API
-
-A simple REST API that returns basic information including an email address, current datetime in ISO 8601 format, and GitHub repository URL.
-
-## Features
-
-- **JSON Response:** Returns the required information in JSON format.
-- **CORS Support:** Handles cross-origin requests seamlessly.
-- **Dynamic Datetime:** Automatically generates the current datetime in ISO 8601 format (UTC).
-- **Fast Performance:** Ensures a response time of less than 500ms.
-
-## Technology Stack
-
-- **Python 3.8+**
-- **FastAPI** - A modern web framework for building APIs.
-- **Uvicorn** - An ASGI server for serving FastAPI applications.
-- **pytz** - Library for timezone handling.
-
-### Example Usage
-
-You can test the API using postman :
-request type : GET
-
-```url
-https://stage0-theclaire.onrender.com
-```
-
-## Local Setup
-
-Follow these steps to set up the project on your local machine:
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/TATA-THECLAIRE/stage0-Theclaire.git
-   cd your-repo
-   ```
-
-2. **Create and activate a virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install fastapi uvicorn pytz
-   ```
-
-4. **Run the application:**
-   ```bash
-   uvicorn main:app --reload
-   ```
-   The API will be available at `http://localhost:8000`.
-
-## API Documentation
+## API Specification
 
 ### Endpoint
+```
+GET /api/classify-number?number=371
+```
 
-- **URL:** `https://stage0-theclaire.onrender.com`
-- **Method:** `GET`
-- **CORS:** Enabled for all origins
-
-### Response Format
-
+### Success Response (200 OK)
 ```json
 {
-    "email": "tatatheclaire@gmail.com",
-    "current_datetime": "2025-01-30T09:30:00Z",
-    "github_url": "https://github.com/yourusername/your-repo"
+    "number": 371,
+    "is_prime": false,
+    "is_perfect": false,
+    "properties": ["armstrong", "odd"],
+    "digit_sum": 11,
+    "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
 ```
 
-### Response Fields
-
-- **`email`:** The email address used for HNG12 registration.
-- **`current_datetime`:** Current UTC datetime in ISO 8601 format.
-- **`github_url`:** URL to the GitHub repository.
-
-### Example Usage
-
-You can test the API using postman :
-
-```url
-https://stage0-theclaire.onrender.com
+### Error Response (400 Bad Request)
+```json
+{
+    "number": "alphabet",
+    "error": true
+}
 ```
+
+## Features
+
+- Determines if a number is prime
+- Determines if a number is perfect
+- Identifies Armstrong numbers
+- Calculates digit sum
+- Provides even/odd property
+- Fetches fun facts about numbers from Numbers API
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## Running Locally
+
+```bash
+python app.py
+```
+
+The API will be available at `http://localhost:10000`
 
 ## Deployment
 
-This API is deployed on :
+This API is deployed on Render.com. The live API is available at:
+[Your-Render-URL]/api/classify-number?number=371
 
-**Render**
+## Technology Stack
 
+- Python
+- Flask
+- CORS support
+- JSON responses
+- Numbers API integration
 
-Follow the platform-specific deployment instructions and ensure you set up environment variables if needed.
+## Notes
 
-## Related Resources
-
-Explore more about Python development at [HNG Python Developers](https://hng.tech/hire/python-developers).
-
+- Response time is optimized to be under 500ms for most requests
+- CORS is enabled for cross-origin requests
+- Input validation ensures only valid integers are processed
+- Error handling returns appropriate status codes
