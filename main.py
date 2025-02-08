@@ -48,8 +48,17 @@ def get_number_fact(number):
 
 @app.route('/api/classify-number', methods=['GET'])
 def classify_number():
+    # Get number from query parameter
     number_param = request.args.get('number')
     
+    # If number parameter is missing
+    if number_param is None:
+        return jsonify({
+            "number": "",
+            "error": True
+        }), 400
+    
+    # Try to convert to integer
     try:
         number = int(number_param)
     except (ValueError, TypeError):
